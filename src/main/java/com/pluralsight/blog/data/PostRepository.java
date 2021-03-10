@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class PostRepository {
@@ -52,6 +54,13 @@ public class PostRepository {
     }
 
     public Post findById(Long id) {
+        List<Post> collect = ALL_POSTS
+                .stream()
+                .filter(post -> post.getId().equals(id))
+                .collect(Collectors.toList());
+        if (collect.size()>0){
+            return collect.get(0);
+        }
         return null;
     }
 }
